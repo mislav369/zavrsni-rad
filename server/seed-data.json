@@ -1,0 +1,203 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Uvod u C",
+      "order_num": 1,
+      "content": "## Što je C?\n\nProgramski jezik C je proceduralni programski jezik opće namjene koji je usko povezan s načinom na koji računala rade. Iako se ponekad smatra teškim za učenje, C je zapravo vrlo jednostavan jezik s iznimno moćnim mogućnostima. Njegove glavne karakteristike su:\n\n* **Strukturiran i proceduralan:** Kod se organizira u blokove i funkcije.\n* **Opće namjene:** Može se koristiti za izradu vrlo različitih aplikacija.\n* **Prenosivost:** Programi napisani u C-u mogu se uz male ili nikakve izmjene prevoditi i izvršavati na različitim računalnim sustavima.\n\nC je vrlo čest jezik i na njemu se temelje mnoge poznate aplikacije i sustavi, kao što su Windows, Python interpreter i Git.\n\n## Kako C funkcionira: Kompajliranje\n\nC je **kompajlirani jezik**. To znači da kod koji napišemo ne može biti izravno izvršen. Prvo ga moramo obraditi pomoću posebnog programa koji se zove **kompajler** (eng. *compiler*), kao što su GCC ili Visual Studio. Proces prevođenja izvornog koda u izvršnu datoteku sastoji se od nekoliko koraka:\n\n1.  **Pretprocesiranje:** Pretprocesor obrađuje direktive koje počinju sa znakom `#`.\n2.  **Kompajliranje:** Kompajler prevodi obrađeni C kod u assemblerski kod, prilagođen specifičnom procesoru.\n3.  **Povezivanje (Linking):** Povezivač (linker) spaja prevedeni kod s potrebnim funkcijama iz biblioteka i stvara konačnu, izvršnu datoteku.\n\nTu izvršnu datoteku tada možemo pokrenuti i ona će izvršiti naredbe koje smo napisali.\n\n## Naš prvi program: \"Hello world!\"\n\nTradicija je da prvi program u novom jeziku bude jednostavan program koji na zaslon ispisuje poruku \"Hello, world!\".\n\n```c\n#include <stdio.h>\n\n int main(void)\n{\n    printf(\"Hello world!\\n\");\n    return 0;\n}\n```\n\n### Detaljna analiza koda\n\nProđimo sada kroz svaku liniju koda kako bismo razumjeli što ona točno radi.\n\n- `#include <stdio.h>`\n    * Ova linija je pretprocesorska direktiva. Ona govori pretprocesoru da u naš program uključi sadržaj datoteke `stdio.h`.\n    * `stdio.h` je standardna biblioteka za ulazno/izlazne operacije (eng. *Standard Input/Output*).\n    * Ova biblioteka sadrži definiciju funkcije `printf` koju koristimo za ispis na ekran.\n    * Uglate zagrade `<...>` govore pretprocesoru da traži datoteku u standardnim direktorijima sustava.\n\n* `int main(void)`\n    * Svaki C program mora imati `main` funkciju; ona je početna točka izvršavanja programa.\n    * `int` označava da će funkcija, kada završi, vratiti cjelobrojnu vrijednost (eng. *integer*) operacijskom sustavu.\n    * `void` u zagradama eksplicitno označava da funkcija `main` ne prima nikakve argumente.\n\n* `{` i `}`\n    * Vitičaste zagrade označavaju početak i kraj bloka naredbi, u ovom slučaju tijela `main` funkcije. Sve što se nalazi između njih pripada toj funkciji.\n\n* `/* ... */`\n    * Ovo je primjer komentara u više redaka. Sav tekst između `/*` i `*/` kompajler ignorira i on služi samo za pojašnjenje koda programeru.\n\n* `printf(\"Pozdrav svijete!\\n\");`\n    * Ovo je poziv funkcije `printf` iz `stdio.h` biblioteke.\n    * Tekst unutar navodnika `\"...\"` je string koji će biti ispisan na ekran.\n    * `\\n` je posebna oznaka za **novi red** (eng. *newline*). Ona uzrokuje da se kursor nakon ispisa pomakne u sljedeći redak.\n    * Svaka naredba u C-u mora završiti točka-zarezom (`;`). On označava kraj jedne naredbe.\n\n* `return 0;`\n    * Ova naredba završava `main` funkciju i vraća vrijednost operacijskom sustavu.\n    * Vrijednost `0` je standardna povratna vrijednost za uspješno izvršen program. Bilo koja druga vrijednost (različita od 0) signalizira da je došlo do greške."
+    },
+    {
+      "id": 2,
+      "title": "Varijable i Tipovi Podataka",
+      "order_num": 2,
+      "content": "## Tipovi podataka\n\nC koristi različite tipove podataka za pohranu vrijednosti. Najčešći su:\n\n- `int` – cijeli brojevi (npr. -10, 0, 25)\n- `float` – realni brojevi s pomičnim zarezom (npr. 3.14)\n- `double` – realni brojevi s većom preciznošću\n- `char` – znakovi (npr. 'a', 'Z')\n\nPrimjeri deklaracije varijabli:\n\n```c\nint broj = 5;\nfloat pi = 3.14;\ndouble precizni_pi = 3.1415926535;\nchar znak = 'A';\n```\n\n## Modifikatori tipova podataka\n\nC omogućuje modifikaciju osnovnih tipova podataka:\n\n- `short` – kraći raspon cijelih brojeva\n- `long` – veći raspon cijelih brojeva\n- `unsigned` – samo pozitivni brojevi\n\nPrimjer:\n\n```c\nunsigned int a = 10;\nlong int b = 1000000;\nshort int c = -32768;\n```\n\n## Operator =\n\nKoristi se za dodjeljivanje vrijednosti varijabli.\n\n```c\nint x;\nx = 10;\n```\n\n## Aritmetički operatori\n\n- `+` zbrajanje\n- `-` oduzimanje\n- `*` množenje\n- `/` dijeljenje\n- `%` ostatak pri dijeljenju\n\nPrimjer:\n\n```c\nint a = 10, b = 3;\nint zbroj = a + b; // 13\nint ostatak = a % b; // 1\n```\n\n## Relacijski operatori\n\nKoriste se za usporedbu vrijednosti. Rezultat je 1 (true) ili 0 (false).\n\n- `==` jednako\n- `!=` nije jednako\n- `>` veće\n- `<` manje\n- `>=` veće ili jednako\n- `<=` manje ili jednako\n\nPrimjer:\n\n```c\nint a = 5, b = 10;\nint provjera = a < b; // 1 (true)\n```\n\n## Logički operatori\n\nKoriste se za kombiniranje uvjeta.\n\n- `&&` logičko I\n- `||` logičko ILI\n- `!` negacija\n\nPrimjer:\n\n```c\nint a = 5, b = 10, c = 15;\nint rez = (a < b) && (b < c); // 1 (true)\n```\n ## Ispis varijable na ekran\n\nZa ispis vrijednosti varijabli na ekran koristi se funkcija `printf` iz biblioteke `stdio.h`. Svakom tipu podatka odgovara određeni formatni specifikator:\n\n- `%d` za `int`\n- `%f` za `float` i `double`\n- `%c` za `char`\n\nPrimjer ispisa:\n\n```c\n#include <stdio.h>\n\nint main() {\n    int broj = 10;\n    float pi = 3.14;\n    char znak = 'A';\n\n    printf(\"Cijeli broj: %d\\n\", broj);\n    printf(\"Realni broj: %f\\n\", pi);\n    printf(\"Znak: %c\\n\", znak);\n\n    return 0;\n}\n```"
+    },
+    {
+      "id": 3,
+      "title": "Kontrola Toka: If / Else",
+      "order_num": 3,
+      "content": "`if`, `else if`, i `else` omogućuju uvjetno izvođenje koda.\n\n## Sintaksa:\n```c\nif (uvjet) {\n    // kod ako je uvjet istinit\n} else {\n    // kod ako nije\n}\n```\n## Primjer:\n```c\nint x = 10;\n\nif (x > 0) {\n    printf(\"Pozitivan broj\\n\");\n} else if (x < 0) {\n    printf(\"Negativan broj\\n\");\n} else {\n    printf(\"Nula\\n\");\n}\n```"
+    },
+    {
+      "id": 4,
+      "title": "Petlje: For i While",
+      "order_num": 4,
+      "content": "**Petlje** omogućuju ponavljanje bloka koda više puta.\n\n## `for` petlja:\nIdealna kada znate koliko puta se petlja treba izvršiti.\n\n```c\nfor (int i = 0; i < 5; i++) {\n    printf(\"%d\\n\", i);\n}\n```\n\n## `while` petlja:\nKoristi se kada je broj ponavljanja nepoznat i ovisi o uvjetu.\n\n```c\nc = 0;\nwhile (c < 3) {\n    printf(\"Broj: %d\\n\", c);\n    c++;\n}\n```"
+    },
+    {
+      "id": 5,
+      "title": "Funkcije",
+      "order_num": 5,
+      "content": "**Funkcije** su blokovi koda koji obavljaju određeni zadatak i mogu se pozivati više puta.\n\n## Definicija funkcije:\n```c\nint zbroji(int a, int b) {\n    return a + b;\n}\n```\n\n## Pozivanje funkcije:\n```c\nint rezultat = zbroji(5, 3);\nprintf(\"Zbroj je: %d\\n\", rezultat);\n```\n\n## Deklaracija (prototip):\nObično se stavlja na početak datoteke ili u header datoteku.\n\n```c\nint zbroji(int a, int b); // Prototip\n\nint main() {\n    int suma = zbroji(10, 20);\n    printf(\"Suma: %d\\n\", suma);\n    return 0;\n}\n\nint zbroji(int a, int b) {\n    return a + b;\n}\n```"
+    }
+  ],
+  "exercises": [
+    {
+      "lesson_id": 1,
+      "title": "Hello, world!",
+      "description": "**Zadatak:** Napišite C program koji ispisuje: `Hello, world!` Koristite `printf` funkciju.",
+      "template_code": "#include <stdio.h>\n\nint main() {\n  // vaš kod ovdje\n  return 0;\n}",
+      "expected_output": "Hello, world!\n"
+    },
+    {
+      "lesson_id": 2,
+      "title": "Rad s Varijablama",
+      "description": "**Zadatak:** Deklarirajte `int` varijablu imena `broj`, dodijelite joj vrijednost `42`, i ispišite je.",
+      "template_code": "#include <stdio.h>\n\nint main() {\n  // vaš kod ovdje\n  return 0;\n}",
+      "expected_output": "42\n"
+    },
+    {
+      "lesson_id": 3,
+      "title": "Uvjetni ispis",
+      "description": "**Zadatak:** Napišite program koji provjerava je li broj `x` (postavljen na `7`) veći od `5`. Ako jest, ispišite `Broj je veći od 5.`, inače ispišite `Broj nije veći od 5.`",
+      "template_code": "#include <stdio.h>\n\nint main() {\n    int x = 7; // Nemojte mijenjati ovu liniju\n    // Vaš kod ovdje\n    return 0;\n}",
+      "expected_output": "Broj je veći od 5.\n"
+    },
+    {
+      "lesson_id": 4,
+      "title": "Zbrajanje do N",
+      "description": "**Zadatak:** Napišite `for` petlju koja zbraja brojeve od 1 do 5 i ispisuje konačni zbroj.",
+      "template_code": "#include <stdio.h>\n\nint main() {\n    int suma = 0;\n    // Vaš kod ovdje\n    printf(\"Zbroj: %d\\n\", suma);\n    return 0;\n}",
+      "expected_output": "Zbroj: 15\n"
+    },
+    {
+      "lesson_id": 5,
+      "title": "Funkcija za množenje",
+      "description": "**Zadatak:** Napišite funkciju `umnozak` koja prima dva cijela broja i vraća njihov umnožak. Zatim je pozovite u `main` funkciji s brojevima `4` i `6` te ispišite rezultat.",
+      "template_code": "#include <stdio.h>\n\n// Deklaracija funkcije\nint umnozak(int a, int b);\n\nint main() {\n    // Vaš kod ovdje\n    return 0;\n}\n\n// Definicija funkcije\nint umnozak(int a, int b) {\n    // Vaš kod ovdje\n}\n",
+      "expected_output": "24\n"
+    }
+  ],
+  "quizzes": [
+    {
+      "lesson_id": 1,
+      "title": "Kviz: Uvod u C",
+      "questions": [
+        {
+          "question_text": "Čime svaka naredba u C-u mora završiti?",
+          "options": ["Zarezom", "Točkom", "Dvotočkom", "Točka-zarezom"],
+          "correct_option_index": 3
+        },
+        {
+          "question_text": "Je li C interpretirani ili kompajlirani jezik?",
+          "options": ["Interpretirani", "Kompajlirani", "Oba", "Nijedan"],
+          "correct_option_index": 1
+        },
+        {
+          "question_text": "Što funkcija `main` predstavlja u C programu?",
+          "options": [
+            "Funkciju za ispis",
+            "Funkciju za ulaz podataka",
+            "Početnu točku izvršavanja programa",
+            "Funkciju za greške"
+          ],
+          "correct_option_index": 2
+        },
+        {
+          "question_text": "Što označavaju vitičaste zagrade `{` i `}`?",
+          "options": [
+            "Početak i kraj komentara",
+            "Početak i kraj datoteke",
+            "Početak i kraj bloka naredbi",
+            "Početak i kraj linije koda"
+          ],
+          "correct_option_index": 2
+        },
+        {
+          "question_text": "Koja funkcija se koristi za ispis teksta na ekran?",
+          "options": ["scan", "input", "printf", "write"],
+          "correct_option_index": 2
+        }
+      ]
+    },
+    {
+      "lesson_id": 2,
+      "title": "Kviz: Varijable",
+      "questions": [
+        {
+          "question_text": "Koji bi tip podatka koristili za pohranu broja 3.14 u C-u?",
+          "options": ["char", "float", "int", "double"],
+          "correct_option_index": 1
+        },
+        {
+          "question_text": "Koji tip podatka koristimo za pohranu cijelih brojeva u C-u?",
+          "options": ["float", "char", "int", "double"],
+          "correct_option_index": 2
+        },
+        {
+          "question_text": "Koji operator se koristi za dodjeljivanje vrijednosti varijabli?",
+          "options": ["==", "=", "+", "!"],
+          "correct_option_index": 1
+        },
+        {
+          "question_text": "Koji aritmetički operator vraća ostatak pri dijeljenju?",
+          "options": ["/", "*", "%", "+"],
+          "correct_option_index": 2
+        },
+        {
+          "question_text": "Koji formatni specifikator koristimo za ispis varijable tipa `float` pomoću `printf()` funkcije?",
+          "options": ["%d", "%c", "%s", "%f"],
+          "correct_option_index": 3
+        }
+      ]
+    },
+    {
+      "lesson_id": 3,
+      "title": "Kviz: Kontrola Toka",
+      "questions": [
+        {
+          "question_text": "Koji ključna riječ se koristi za izvršavanje koda **samo ako** je uvjet istinit?",
+          "options": ["else", "if", "while", "for"],
+          "correct_option_index": 1
+        },
+        {
+          "question_text": "Što će se ispisati u ovom kodu?\n```c\nint a = 5;\nif (a > 10) {\n printf(\"Velik\\n\");\n} else {\n printf(\"Mali\\n\");\n}\n```",
+          "options": ["Velik", "Mali", "Ništa", "Greška"],
+          "correct_option_index": 1
+        }
+      ]
+    },
+    {
+      "lesson_id": 4,
+      "title": "Kviz: Petlje",
+      "questions": [
+        {
+          "question_text": "Koju petlju biste koristili ako znate **točan broj ponavljanja**?",
+          "options": ["while", "if", "for", "switch"],
+          "correct_option_index": 2
+        },
+        {
+          "question_text": "Što je rezultat sljedećeg koda?\n```c\nint i = 0;\nwhile (i < 2) {\n  i++;\n}\nprintf(\"%d\\n\", i);\n```",
+          "options": ["0", "1", "2", "3"],
+          "correct_option_index": 2
+        }
+      ]
+    },
+    {
+      "lesson_id": 5,
+      "title": "Kviz: Funkcije",
+      "questions": [
+        {
+          "question_text": "Što radi ključna riječ `return` unutar funkcije?",
+          "options": [
+            "Zaustavlja program",
+            "Ispisuje vrijednost",
+            "Vraća vrijednost pozivatelju funkcije",
+            "Deklarira varijablu"
+          ],
+          "correct_option_index": 2
+        },
+        {
+          "question_text": "Koja je svrha prototipa funkcije?",
+          "options": [
+            "Definira funkciju",
+            "Deklarira varijable unutar funkcije",
+            "Govori kompajleru o postojanju funkcije prije njezine definicije",
+            "Poziva funkciju"
+          ],
+          "correct_option_index": 2
+        }
+      ]
+    }
+  ]
+}

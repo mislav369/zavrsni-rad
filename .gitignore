@@ -1,0 +1,29 @@
+# Root node_modules 
+node_modules/
+
+# Client
+client/node_modules/
+client/dist/
+client/build/
+
+# Server
+server/node_modules/
+
+# Env files
+.env
+.env.*
+
+# SQLite db
+*.sqlite
+*.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+
+# VSCode
+.vscode/
+
